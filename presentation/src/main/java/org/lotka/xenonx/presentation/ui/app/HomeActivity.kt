@@ -12,43 +12,33 @@ import androidx.compose.ui.unit.LayoutDirection
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.compose.rememberNavController
 import dagger.hilt.android.AndroidEntryPoint
-
-
-
+import org.lotka.xenonx.presentation.theme.TMDBComposeTheme
 
 @AndroidEntryPoint
 class HomeActivity : AppCompatActivity() {
     @OptIn(ExperimentalComposeUiApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        installSplashScreen()
+
         setContent {
+            TMDBComposeTheme {
             val navController = rememberNavController()
             val keyboardController = LocalSoftwareKeyboardController.current
 
-
-
             CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
+
                 if (keyboardController != null) {
                     HomeApp(
                         activity = this@HomeActivity,
                         navController = navController,
-                        onNavigateToRecipeDetailScreen = {
-                            },
+                        onNavigateToRecipeDetailScreen = { },
                         isDarkTheme = false,
                         onToggleTheme = { },
                         keyboardController = keyboardController,
-
                     )
                 }
             }
+            }
         }
-
-
-
-
-
     }
-
-
 }

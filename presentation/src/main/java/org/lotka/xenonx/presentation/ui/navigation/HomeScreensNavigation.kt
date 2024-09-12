@@ -5,7 +5,7 @@ sealed class ScreensNavigation(val route: String) {
 
 
 
-    object HomeChatScreen : ScreensNavigation(route = "HomeChatScreen")
+    object HomeScreen : ScreensNavigation(route = "home_screen")
     object single_chat_screen : ScreensNavigation(route = "SingleChatScreen")
 
 
