@@ -72,7 +72,7 @@ fun StandardHeaderText(
     Row (modifier = modifier){
         Text(
             text = text,
-            color = Color.White,
+            color = MaterialTheme.colors.onBackground,
             fontWeight = FontWeight.Bold,
             style = MaterialTheme.typography.h6,
 

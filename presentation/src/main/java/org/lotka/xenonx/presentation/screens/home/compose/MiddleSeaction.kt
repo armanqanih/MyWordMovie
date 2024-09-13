@@ -17,6 +17,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.QuestionMark
 import androidx.compose.material.icons.filled.Star
+import androidx.compose.material.icons.filled.Stars
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -43,7 +44,7 @@ fun MiddleSeaction(){
             .padding(top = 2.dp)
             ){
             StandardHeaderText(
-                modifier = Modifier.weight(6f),
+                modifier = Modifier.weight(8f),
                 text = "Play Now",)
             StandardTextMore(
                 modifier = Modifier.weight(2f),
@@ -81,6 +82,7 @@ fun MiddleSeaction(){
         }
 
         Spacer(modifier = Modifier.height(Constants.SpaceMedium))
+
          // Popular Movie
 
         Row (modifier = Modifier
@@ -88,10 +90,10 @@ fun MiddleSeaction(){
             .padding(top = 2.dp)
         ){
             StandardHeaderText(
-                modifier = Modifier.weight(6f),
+                modifier = Modifier.weight(8f),
                 text = "Popular Movie",
                 showIcon = true,
-                iconImage = Icons.Default.QuestionMark
+                iconImage = Icons.Default.Stars
                 )
             StandardTextMore(
                 modifier = Modifier.weight(2f),
@@ -108,23 +110,19 @@ fun MiddleSeaction(){
                 if (it!=0){
                     Spacer(modifier = Modifier.width(Constants.SpaceSmall))
                 }
-                Box(modifier = Modifier
-                    .height(150.dp)
-                    .width(120.dp)
-                    .clip(shape = RoundedCornerShape(Constants.SpaceMedium))
-                    .shadow(elevation = 4.dp)
-                ){
 
                     Image(
-                        contentScale = ContentScale.Crop,
                         modifier = Modifier
-                            .fillMaxSize()
-                            .clip(RoundedCornerShape(Constants.SpaceMedium)),
+                            .height(150.dp)
+                            .width(120.dp)
+                            .clip(shape = RoundedCornerShape(Constants.SpaceMedium))
+                            .shadow(elevation = 4.dp),
+                        contentScale = ContentScale.Crop,
                         painter = painterResource(id = R.drawable.assasin ),
                         contentDescription = "header image"
 
                     )
-                }
+
             }
         }
 

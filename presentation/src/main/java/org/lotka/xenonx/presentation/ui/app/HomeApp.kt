@@ -13,11 +13,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.platform.SoftwareKeyboardController
+import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.google.accompanist.pager.ExperimentalPagerApi
+import org.lotka.xenonx.presentation.screens.detail.DetailScreen
 import org.lotka.xenonx.presentation.screens.home.HomeScreen
 import org.lotka.xenonx.presentation.screens.splash.SplashScreen
 
@@ -47,13 +49,23 @@ fun HomeApp(
 
         content = { _ ->
             NavHost(navController = navController,
-                startDestination = ScreensNavigation.homeScreen .route,
+                startDestination = ScreensNavigation.detailScreen .route,
               ) {
                 composable(
                     route = ScreensNavigation.homeScreen .route,
                 ) {
 
-                    HomeScreen()
+                    HomeScreen(
+                        onNavigate = navController::navigate
+                    )
+
+
+                }
+                composable(
+                    route = ScreensNavigation.detailScreen .route,
+                ) {
+
+                    DetailScreen()
 
 
                 }

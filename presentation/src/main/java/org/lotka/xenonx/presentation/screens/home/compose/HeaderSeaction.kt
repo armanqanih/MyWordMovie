@@ -3,6 +3,7 @@ package org.lotka.xenonx.presentation.screens.home.compose
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -38,7 +39,9 @@ import org.lotka.xenonx.presentation.util.Constants
 import org.lotka.xenonx.presentation.util.Constants.SpaceSmall
 
 @Composable
-fun HeaderSeaction(){
+fun HeaderSeaction(
+    onHeaderImageClick:()-> Unit
+){
 
     Column(modifier = Modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally) {
@@ -54,7 +57,9 @@ fun HeaderSeaction(){
             contentScale = ContentScale.Crop,
             modifier = Modifier
                 .fillMaxSize()
-                .clip(RoundedCornerShape(Constants.SpaceMedium)),
+                .clip(RoundedCornerShape(Constants.SpaceMedium))
+                .clickable {onHeaderImageClick()  }
+            ,
             painter = painterResource(id = R.drawable.assasin ),
             contentDescription = "header image"
 
@@ -97,7 +102,8 @@ fun HeaderSeaction(){
 fun Geners(){
     Column(modifier = Modifier.fillMaxWidth()) {
 
-        StandardHeaderText(text = "Genres")
+        StandardHeaderText(
+            text = "Genres")
         Spacer(modifier = Modifier.height(Constants.SpaceSmall))
         LazyRow(modifier = Modifier.fillMaxWidth(),
 
@@ -116,7 +122,7 @@ fun Geners(){
                     Text(
                         modifier = Modifier.padding(SpaceSmall),
                         text = "Actions",
-                        color = Color.White,
+                        color = MaterialTheme.colors.onBackground,
                         fontWeight = FontWeight.Medium,
                         style = MaterialTheme.typography.body1,
 

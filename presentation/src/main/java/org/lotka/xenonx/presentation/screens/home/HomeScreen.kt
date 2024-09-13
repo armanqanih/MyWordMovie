@@ -21,12 +21,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import org.lotka.xenonx.presentation.composable.StandardToolBar
+import org.lotka.xenonx.presentation.screens.home.compose.BottomSeaction
 import org.lotka.xenonx.presentation.screens.home.compose.HeaderSeaction
 import org.lotka.xenonx.presentation.screens.home.compose.MiddleSeaction
+import org.lotka.xenonx.presentation.ui.navigation.ScreensNavigation
 import org.lotka.xenonx.presentation.util.Constants
 
 @Composable
-fun HomeScreen() {
+fun HomeScreen(
+    onNavigate:(String)->Unit
+) {
 
     Column(modifier = Modifier.fillMaxSize()
 
@@ -69,15 +73,18 @@ fun HomeScreen() {
             .padding(Constants.SpaceMedium)
         ){
             item{
-             HeaderSeaction()
+             HeaderSeaction(onHeaderImageClick = {
+                 onNavigate(ScreensNavigation.detailScreen.route)
+             })
             }
             item{
                 Spacer(modifier = Modifier.height(Constants.SpaceMedium))
                 MiddleSeaction()
             }
-//            item{
-//                BottomSeaction()
-//        }
+           item{
+               Spacer(modifier = Modifier.height(Constants.SpaceMedium))
+               BottomSeaction()
+       }
 
 
     }
