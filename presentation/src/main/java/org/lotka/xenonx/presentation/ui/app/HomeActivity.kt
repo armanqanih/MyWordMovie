@@ -12,7 +12,8 @@ import androidx.compose.ui.unit.LayoutDirection
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.compose.rememberNavController
 import dagger.hilt.android.AndroidEntryPoint
-import org.lotka.xenonx.presentation.theme.TMDBComposeTheme
+import org.lotka.xenonx.presentation.theme.CleanArchitectureNoteAppTheme
+
 
 @AndroidEntryPoint
 class HomeActivity : AppCompatActivity() {
@@ -21,7 +22,7 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            TMDBComposeTheme {
+            CleanArchitectureNoteAppTheme {
             val navController = rememberNavController()
             val keyboardController = LocalSoftwareKeyboardController.current
 

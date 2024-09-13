@@ -19,12 +19,12 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.google.accompanist.pager.ExperimentalPagerApi
 import org.lotka.xenonx.presentation.screens.home.HomeScreen
+import org.lotka.xenonx.presentation.screens.splash.SplashScreen
 
 import org.lotka.xenonx.presentation.ui.navigation.ScreensNavigation
 
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
-@OptIn(ExperimentalPagerApi::class, ExperimentalMaterialApi::class, ExperimentalComposeUiApi::class)
 @Composable
 fun HomeApp(
     activity: HomeActivity,
@@ -47,14 +47,24 @@ fun HomeApp(
 
         content = { _ ->
             NavHost(navController = navController,
-                startDestination = ScreensNavigation.HomeScreen .route,
+                startDestination = ScreensNavigation.homeScreen .route,
               ) {
                 composable(
-                    route = ScreensNavigation.HomeScreen .route,
+                    route = ScreensNavigation.homeScreen .route,
                 ) {
 
-
                     HomeScreen()
+
+
+                }
+                composable(
+                    route = ScreensNavigation.spalshScreen.route,
+                ) {
+
+                    SplashScreen(
+                        onNavigate = navController::navigate,
+
+                    )
 
 
                 }

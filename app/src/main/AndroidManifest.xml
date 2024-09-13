@@ -20,7 +20,7 @@
         android:roundIcon="@mipmap/ic_launcher_monochrome"
         android:supportsRtl="true"
         android:hardwareAccelerated="true"
-        android:theme="@style/Theme.QuotesApp"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark"
         android:usesCleartextTraffic="true"
         tools:ignore="UnusedAttribute">
         <profileable
@@ -30,7 +30,7 @@
 
         <activity
             android:name=".presentation.ui.app.HomeActivity"
-            android:theme="@style/Theme.AppCompat"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:exported="true"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>
