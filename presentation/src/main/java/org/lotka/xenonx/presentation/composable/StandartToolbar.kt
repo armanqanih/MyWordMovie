@@ -7,6 +7,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.ArrowBackIosNew
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -35,7 +36,7 @@ fun StandardToolBar(
                     onNavigateUp()
                 }) {
                     Icon(
-                        imageVector = icon ?: Icons.Filled.ArrowBack,
+                        imageVector = icon ?: Icons.Filled.ArrowBackIosNew,
                         contentDescription = "",
                         tint = MaterialTheme.colors.onBackground
                     )

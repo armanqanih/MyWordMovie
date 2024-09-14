@@ -29,11 +29,12 @@ import org.lotka.xenonx.presentation.util.Constants
 
 @Composable
 fun HomeScreen(
-    onNavigate:(String)->Unit
+    onNavigate:(String)->Unit,
+    onSearchClick:(String)->Unit,
+    onNavigateToPlayNow:(String)->Unit={}
 ) {
 
     Column(modifier = Modifier.fillMaxSize()
-
     ) {
 
         StandardToolBar(
@@ -43,11 +44,14 @@ fun HomeScreen(
             title = {
                 Text(text = "Home Movie",
                     color = MaterialTheme.colors.onBackground,
+                    style = MaterialTheme.typography.body1,
                     fontWeight = FontWeight.Bold
                     )
             },
             navAction = {
-                IconButton(onClick = { /* First action */ }) {
+                IconButton(onClick = { onSearchClick(
+                    ScreensNavigation.searchScreen.route
+                )}) {
                     Icon(
                         imageVector = Icons.Default.Search,
                         contentDescription = "Search",
@@ -79,7 +83,9 @@ fun HomeScreen(
             }
             item{
                 Spacer(modifier = Modifier.height(Constants.SpaceMedium))
-                MiddleSeaction()
+                MiddleSeaction(
+                    onNavigateToPlayNow = onNavigateToPlayNow
+                )
             }
            item{
                Spacer(modifier = Modifier.height(Constants.SpaceMedium))

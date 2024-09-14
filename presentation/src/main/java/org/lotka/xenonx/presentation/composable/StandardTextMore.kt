@@ -28,7 +28,6 @@ import org.lotka.xenonx.presentation.util.Constants.SpaceSmall
 
 @Composable
 fun StandardTextMore(
-
     modifier: Modifier = Modifier,
     onClick: () -> Unit
 ) {

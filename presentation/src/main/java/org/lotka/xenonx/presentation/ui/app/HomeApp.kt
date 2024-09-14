@@ -4,23 +4,19 @@ package org.lotka.xenonx.presentation.ui.app
 
 
 import android.annotation.SuppressLint
-import androidx.compose.animation.EnterTransition
-import androidx.compose.animation.ExitTransition
-import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Scaffold
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.platform.SoftwareKeyboardController
-import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.google.accompanist.pager.ExperimentalPagerApi
+import org.lotka.xenonx.presentation.screens.SearchScreen
 import org.lotka.xenonx.presentation.screens.detail.DetailScreen
 import org.lotka.xenonx.presentation.screens.home.HomeScreen
+import org.lotka.xenonx.presentation.screens.see_all.SeeAllScreen
 import org.lotka.xenonx.presentation.screens.splash.SplashScreen
 
 import org.lotka.xenonx.presentation.ui.navigation.ScreensNavigation
@@ -49,7 +45,7 @@ fun HomeApp(
 
         content = { _ ->
             NavHost(navController = navController,
-                startDestination = ScreensNavigation.detailScreen .route,
+                startDestination = ScreensNavigation.homeScreen.route,
               ) {
                 composable(
                     route = ScreensNavigation.homeScreen .route,
@@ -57,6 +53,30 @@ fun HomeApp(
 
                     HomeScreen(
                         onNavigate = navController::navigate
+                        , onNavigateToPlayNow =  navController::navigate,
+                        onSearchClick = navController::navigate
+                    )
+
+
+                }
+                composable(
+                    route = ScreensNavigation.searchScreen .route,
+                ) {
+
+                    SearchScreen(
+                        onNavigateUp =  navController::navigateUp
+
+                    )
+
+
+                }
+                composable(
+                    route = ScreensNavigation.seeAllScreen .route,
+                ) {
+
+                    SeeAllScreen(
+                        onNavigateUp =  navController::navigateUp
+
                     )
 
 
@@ -65,10 +85,13 @@ fun HomeApp(
                     route = ScreensNavigation.detailScreen .route,
                 ) {
 
-                    DetailScreen()
+                    DetailScreen(
+                        onNavigateUp = navController::navigateUp
+                    )
 
 
                 }
+
                 composable(
                     route = ScreensNavigation.spalshScreen.route,
                 ) {

@@ -31,10 +31,13 @@ import androidx.compose.ui.unit.dp
 import org.lotka.xenonx.presentation.R
 import org.lotka.xenonx.presentation.composable.StandardHeaderText
 import org.lotka.xenonx.presentation.composable.StandardTextMore
+import org.lotka.xenonx.presentation.ui.navigation.ScreensNavigation
 import org.lotka.xenonx.presentation.util.Constants
 
 @Composable
-fun MiddleSeaction(){
+fun MiddleSeaction(
+    onNavigateToPlayNow:(String)->Unit = {}
+){
     Column(modifier = Modifier.fillMaxWidth()){
 
 //        Play Now
@@ -49,7 +52,7 @@ fun MiddleSeaction(){
             StandardTextMore(
                 modifier = Modifier.weight(2f),
                 onClick = {
-
+                    onNavigateToPlayNow(ScreensNavigation.searchScreen.route)
                 }
             )
         }

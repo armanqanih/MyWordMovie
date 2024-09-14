@@ -117,7 +117,7 @@ fun BottomSeaction(){
                         contentScale = ContentScale.Crop,
                         modifier = Modifier
                             .fillMaxSize()
-                            .clip(RoundedCornerShape(Constants.SpaceSmall)),
+                            .clip(RoundedCornerShape(SpaceSmall)),
                         painter = painterResource(id = R.drawable.prettygirl ),
                         contentDescription = "header image"
 

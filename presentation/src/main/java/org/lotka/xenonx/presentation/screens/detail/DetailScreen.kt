@@ -1,6 +1,9 @@
 package org.lotka.xenonx.presentation.screens.detail
 
+import android.widget.Space
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 
 import androidx.compose.foundation.layout.Arrangement
 
@@ -18,6 +21,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.icons.Icons
@@ -31,6 +35,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 
@@ -52,9 +57,15 @@ import org.lotka.xenonx.presentation.util.Constants.SpaceToLarge
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun DetailScreen() {
+fun DetailScreen(
+  onNavigateUp:()-> Unit
+
+) {
+
     LazyColumn(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxSize()
+            .padding(bottom = SpaceMedium),
+
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         item {
@@ -95,11 +106,27 @@ fun DetailScreen() {
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Icon(
-                        imageVector = Icons.Default.ArrowBackIosNew,
+                        modifier = Modifier
+                            .clip(shape = CircleShape)
+                            .clickable {
+                                onNavigateUp()
+                            }
+                            .padding(SpaceSmall)
+                            .align(Alignment.CenterVertically)
+
+                        , imageVector = Icons.Default.ArrowBackIosNew,
                         contentDescription = "BackDetail",
                         tint = MaterialTheme.colors.onBackground,
                     )
                     Icon(
+                        modifier = Modifier
+                            .clip(shape = CircleShape)
+                            .clickable {
+
+                            }
+                            .padding(SpaceSmall)
+                            .align(Alignment.CenterVertically)
+                        ,
                         imageVector = Icons.Default.BookmarkBorder,
                         contentDescription = "BookMarkBorder",
                         tint = MaterialTheme.colors.onBackground,
