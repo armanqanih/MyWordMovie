@@ -5,6 +5,7 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 import org.lotka.xenonx.domain.models.Genre
 import org.lotka.xenonx.domain.models.GenreDto
+import org.lotka.xenonx.domain.models.Movies
 
 @Parcelize
 data class MoviesDto(
@@ -43,3 +44,32 @@ data class MoviesDto(
     @SerializedName("vote_count")
     val voteCount: Int
 ) : Parcelable
+
+fun MoviesDto.toMovie(): Movies {
+    return Movies(
+        adult = this.adult,
+        backdropPath = this.backdropPath,
+        posterPath = this.posterPath,
+        genreIds = this.genreIds,
+        genres = this.genres?.map { it.toGenre() }, // Assuming you have a toGenre() function
+        mediaType = this.mediaType,
+        id = this.id,
+        imdbId = this.imdbId,
+        originalLanguage = this.originalLanguage,
+        overview = this.overview,
+        popularity = this.popularity,
+        releaseDate = this.releaseDate,
+        runtime = this.runtime,
+        title = this.title,
+        video = this.video,
+        voteAverage = this.voteAverage,
+        voteCount = this.voteCount
+    )
+}
+
+fun GenreDto.toGenre(): Genre {
+    return Genre(
+         id =  id,
+        name = name
+    )
+}
