@@ -9,23 +9,23 @@ import org.lotka.xenonx.domain.util.Resource
 
 interface HomeRepository {
 
-    suspend fun getNowPlayingMovies(page:Int): Flow<Resource<Movies>>
+    suspend fun getNowPlayingMovies(page:Int): Flow<Resource<List<Movies>>>
 
-    suspend fun getPopularMovies(): Flow<Resource<Movies>>
+    suspend fun getPopularMovies(page:Int): Flow<Resource<List<Movies>>>
 
-    suspend fun getDiscoverMoviesRepo(): Flow<Resource<Movies>>
-
-
-    fun getAllMoviesPagination(tags: String):Flow<PagingData<Movies>>
-
-    fun getGenresWiseMovieRepo(tags: Int):Flow<PagingData<Movies>>
+    suspend fun getDiscoverMoviesRepo(page:Int): Flow<Resource<List<Movies>>>
 
 
-    fun getTrendingMoviesRepo(): Flow<Resource<Movies>>
+    fun getAllMoviesPagination(tags: String):Flow<PagingData<List<Movies>>>
 
-    fun getUpcomingMoviesRepo(): Flow<Resource<Movies>>
+    fun getGenresWiseMovieRepo(tags: Int):Flow<PagingData<List<Movies>>>
 
-    fun getMovieGenresRepo(): Flow<Resource<Genre>>
+
+  suspend  fun getTrendingMoviesRepo(page:Int): Flow<Resource<List<Movies>>>
+
+   suspend fun getUpcomingMoviesRepo(page:Int): Flow<Resource<List<Movies>>>
+
+  suspend  fun getMovieGenresRepo(): Flow<Resource<List<Genre>>>
 
 
 }
