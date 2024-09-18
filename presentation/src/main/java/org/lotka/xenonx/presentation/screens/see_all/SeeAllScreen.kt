@@ -1,5 +1,6 @@
 package org.lotka.xenonx.presentation.screens.see_all
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -32,21 +33,77 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.paging.compose.LazyPagingItems
+import androidx.paging.compose.collectAsLazyPagingItems
+import org.lotka.xenonx.domain.models.Movies
+import org.lotka.xenonx.domain.util.Constants
+import org.lotka.xenonx.domain.util.Constants.Companion.discoverListScreen
 import org.lotka.xenonx.presentation.R
 import org.lotka.xenonx.presentation.composable.StandardToolBar
+import org.lotka.xenonx.presentation.screens.home.HomeViewModel
 import org.lotka.xenonx.presentation.util.Constants.SpaceLarge
 import org.lotka.xenonx.presentation.util.Constants.SpaceMedium
 import org.lotka.xenonx.presentation.util.Constants.SpaceSmall
+import org.lotka.xenonx.domain.util.Constants.Companion.nowPlayingAllListScreen
+import org.lotka.xenonx.domain.util.Constants.Companion.popularAllListScreen
+import org.lotka.xenonx.domain.util.Constants.Companion.upcomingListScreen
+import org.lotka.xenonx.presentation.screens.see_all.compose.MovieItemSeeAll
+import org.lotka.xenonx.presentation.ui.navigation.ScreensNavigation
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun SeeAllScreen(
+      selectedTitle: String,
+      onNavigateToSearchScreen:(String)->Unit,
+      onNavigateDetailScreen:(String)->Unit,
       onNavigateUp:()->Unit={}
 ) {
+    val viewModel: HomeViewModel = hiltViewModel()
+    var allMoviesPagination: LazyPagingItems<Movies>? = null
+    var title = ""
+
+    BackHandler(
+        enabled = true
+    ) {
+      onNavigateUp()
+    }
+
+
+    when (selectedTitle) {
+        nowPlayingAllListScreen -> {
+            title = "Now Playing"
+            allMoviesPagination = viewModel.nowPlayingAllListState.collectAsLazyPagingItems()
+        }
+
+        discoverListScreen -> {
+            title = "Discover"
+            allMoviesPagination = viewModel.discoverListState.collectAsLazyPagingItems()
+
+        }
+
+        upcomingListScreen -> {
+            title = "Upcoming"
+            allMoviesPagination = viewModel.upcomingListState.collectAsLazyPagingItems()
+
+        }
+
+        popularAllListScreen -> {
+            title = "Popular"
+            allMoviesPagination = viewModel.popularAllListState.collectAsLazyPagingItems()
+        }
+
+        else -> ""
+    }
+
+
+
+
 
     Column(modifier = Modifier.fillMaxSize()) {
             StandardToolBar(
@@ -55,22 +112,24 @@ fun SeeAllScreen(
                 showBackArrow = true,
                 title = {
                     Text(
-                        text = "                Popular Movie",
+                        text = "              $title",
                         color = MaterialTheme.colors.onBackground,
                         style = MaterialTheme.typography.body1,
                         fontWeight = FontWeight.Bold
                     )
                 },
                 navAction = {
-
                     Spacer(modifier = Modifier.width(8.dp))
                     IconButton(onClick = { }) {
                         Icon(
                             modifier = Modifier.clickable {
+                                onNavigateToSearchScreen(
+                                    ScreensNavigation.searchScreen.route
 
+                                )
                             },
                             imageVector = Icons.Outlined.Search,
-                            contentDescription = "bookMarks",
+                            contentDescription = "search",
                             tint = MaterialTheme.colors.onBackground
                         )
                     }
@@ -93,76 +152,10 @@ fun SeeAllScreen(
             verticalArrangement = Arrangement.spacedBy(16.dp),
             horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            items(20) { index -> // Adjust the item count as needed
-
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(200.dp)
-                        .clip(shape = RoundedCornerShape(SpaceMedium))
-                        .shadow(elevation = 4.dp)
-                        .background(color = MaterialTheme.colors.surface),
-                ) {
-                    Image(
-                        contentScale = ContentScale.Crop,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(150.dp)
-                            .clip(RoundedCornerShape(SpaceMedium)),
-                        painter = painterResource(id = R.drawable.tombreader),
-                        contentDescription = "header image"
-
-                    )
-                    Column (modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(bottom = SpaceSmall)
-                        .align(Alignment.BottomCenter),
-
-                        ){
-                        Text(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                ,
-                            text = "New Movie  ",
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis,
-                            textAlign = TextAlign.Center,
-                            color = MaterialTheme.colors.onBackground,
-                            fontWeight = FontWeight.Bold,
-                            style = MaterialTheme.typography.body2,
-
-
-                            )
-                        Row (
-                            modifier = Modifier.padding(horizontal = SpaceLarge),
-                            verticalAlignment = Alignment.CenterVertically,
-
-                        ){
-                            Icon(
-                                modifier = Modifier.size(14.dp),
-                                imageVector = Icons.Default.Star
-                                , contentDescription = "Star",
-                                tint = MaterialTheme.colors.secondary
-                                )
-
-                            Text(
-                                modifier = Modifier
-                                ,
-                                text = "7.5",
-                                maxLines = 1,
-                                overflow = TextOverflow.Ellipsis,
-                                textAlign = TextAlign.Center,
-                                color = MaterialTheme.colors.onBackground,
-                                style = MaterialTheme.typography.body2,
-
-
-                                )
-                        }
-
-                    }
-
-
-                }
+            items(allMoviesPagination?.itemCount ?: 0) { index -> // Adjust the item count as needed
+                MovieItemSeeAll(
+                    media = allMoviesPagination?.get(index),
+                    onNavigateToDetail =  onNavigateDetailScreen)
             }
 
         }}

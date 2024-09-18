@@ -30,6 +30,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.compose.collectAsLazyPagingItems
+import org.lotka.xenonx.domain.util.Constants.Companion.nowPlayingAllListScreen
 import org.lotka.xenonx.presentation.composable.StandardToolBar
 import org.lotka.xenonx.presentation.screens.home.compose.DisPlayMovieSection
 import org.lotka.xenonx.presentation.screens.home.compose.Geners
@@ -44,13 +45,14 @@ import org.lotka.xenonx.presentation.util.Constants.SpaceSmall
 @Composable
 fun HomeScreen(
     viewModel: HomeViewModel = hiltViewModel(),
-    onNavigateToPlayNow:(String)->Unit,
+    onNavigateToDetailPlayNow:(String)->Unit,
+    onNavigateToMorePlayNow:(String)->Unit,
     onNavigateToPopular:(String)->Unit,
     onNavigateToDiscover:(String)->Unit,
     onNavigateToUpCommon:(String)->Unit,
     onSearchClick:(String)->Unit,
 
-) {
+    ) {
 
      val state = viewModel.state.collectAsState().value
     val moviesLazyPagingItems = viewModel.popularAllListState.collectAsLazyPagingItems()
@@ -144,8 +146,13 @@ fun HomeScreen(
                     item{
                         Spacer(modifier = Modifier.height(Constants.SpaceMedium))
                         PlayNowSection(
-                            onNavigateTo = onNavigateToPlayNow,
-                            movies = state.nowPlayingMovies.orEmpty()
+                            onNavigateTo = onNavigateToDetailPlayNow,
+                            movies = state.nowPlayingMovies.orEmpty(),
+                            onMoreClick = {
+                               onNavigateToMorePlayNow(
+                                   ScreensNavigation.seeAllScreen.route + "/${nowPlayingAllListScreen}"
+                               )
+                            }
                         )
                     }
 

@@ -54,11 +54,13 @@ fun HomeApp(
                 ) {
 
                     HomeScreen(
-                        onNavigateToPlayNow = navController::navigate,
+                        onNavigateToDetailPlayNow = navController::navigate,
                         onSearchClick = navController::navigate,
                         onNavigateToPopular = navController::navigate,
                         onNavigateToDiscover = navController::navigate,
-                        onNavigateToUpCommon = navController::navigate
+                        onNavigateToUpCommon = navController::navigate,
+                        onNavigateToMorePlayNow = navController::navigate
+
                     )
 
 
@@ -74,6 +76,23 @@ fun HomeApp(
 
 
                 }
+
+                composable(
+                    route = ScreensNavigation.seeAllScreen .route+ "/{seeAllTags}",
+                    arguments = listOf(navArgument("seeAllTags")
+                    { type = NavType.StringType })
+                ) {
+
+                    SeeAllScreen(
+                        it.arguments?.getString("seeAllTags")?:"1",
+                        onNavigateDetailScreen = navController::navigate,
+                        onNavigateToSearchScreen = navController::navigate
+                    )
+
+
+                }
+
+
                 composable(
                     route = ScreensNavigation.genryVisyScreen .route
                     + "/{genId}" + "/{genName}",
@@ -91,17 +110,7 @@ fun HomeApp(
 
 
                 }
-                composable(
-                    route = ScreensNavigation.seeAllScreen .route,
-                ) {
 
-                    SeeAllScreen(
-                        onNavigateUp =  navController::navigateUp
-
-                    )
-
-
-                }
                 composable(
                     route = ScreensNavigation.detailScreen .route,
                 ) {

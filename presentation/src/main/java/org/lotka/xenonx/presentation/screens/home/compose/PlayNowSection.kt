@@ -35,6 +35,7 @@ import org.lotka.xenonx.presentation.util.Constants
 @Composable
 fun PlayNowSection(
     movies :List<Movies>,
+    onMoreClick:()->Unit = {},
     onNavigateTo:(String)->Unit = {}
 ){
 
@@ -52,7 +53,7 @@ fun PlayNowSection(
             StandardTextMore(
                 modifier = Modifier.weight(2f),
                 onClick = {
-                    onNavigateTo(ScreensNavigation.searchScreen.route)
+                   onMoreClick()
                 }
             )
         }

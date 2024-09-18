@@ -1,5 +1,6 @@
 package org.lotka.xenonx.presentation.screens.search
 
+import android.widget.Space
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -78,16 +79,14 @@ fun SearchScreen(
       topBar = {
           Row (modifier = Modifier
               .fillMaxWidth()
-              .background(color = MaterialTheme.colors.surface),
-              verticalAlignment = Alignment.CenterVertically
+              .background(color = MaterialTheme.colors.surface)
           ){
               IconButton(onClick = {  onNavigateUp() }) {
                   Icon(
                       modifier = Modifier
-                          .clip(shape = CircleShape)
-
+                          .padding(vertical = SpaceLarge)
                           .align(Alignment.CenterVertically)
-
+                          .clip(shape = CircleShape)
                       , imageVector = Icons.Default.ArrowBackIosNew,
                       contentDescription = "BackDetail",
                       tint = MaterialTheme.colors.onBackground,
@@ -97,16 +96,20 @@ fun SearchScreen(
               SearchBar(
                   colors = SearchBarDefaults.colors(
                       containerColor = MaterialTheme.colors.surface,
-                      dividerColor = MaterialTheme.colors.surface
-                  ),
+                      dividerColor = MaterialTheme.colors.surface,
+                      inputFieldColors = SearchBarDefaults.inputFieldColors(
+                          cursorColor = MaterialTheme.colors.onBackground,
+                          focusedTextColor =MaterialTheme.colors.onBackground,
+
+                          )),
                   modifier = Modifier.fillMaxWidth(),
                   query = state.searchQuery,
                   onQueryChange = {
-                      state.searchQuery = it
+                      viewModel.onEvent(SearchEvent.UpdateSearchQuery(it))
                   },
                   onSearch = {
                       if (state.searchQuery.isNotEmpty()) {
-//                          state.searchQuery = state.searchQuery
+                         state.searchQuery = state.searchQuery
                           viewModel.searchRemoteMovie(true)
                           state.searchActive = false
                       } else {
@@ -124,16 +127,17 @@ fun SearchScreen(
                   trailingIcon = {
                       Icon(
                           modifier = Modifier
-                              .padding(8.dp)  // Replace SpaceSmall with dp padding value
+                               // Replace SpaceSmall with dp padding value
                           , imageVector = Icons.Outlined.Cancel,
                           contentDescription = "Cancel Search",
                           tint = MaterialTheme.colors.onBackground,
                       )
+
                   },
                   leadingIcon = {
                       Icon(
                           modifier = Modifier
-                              .padding(8.dp)  // Replace SpaceSmall with dp padding value
+                                // Replace SpaceSmall with dp padding value
                           , imageVector = Icons.Default.Search,
                           contentDescription = "Search Icon",
                           tint = MaterialTheme.colors.onBackground,
@@ -213,11 +217,13 @@ fun SearchScreen(
                   when {
                       // Handling the initial loading state
                       loadState.refresh is LoadState.Loading -> {
-                          item {  }
+                          item {
+                              viewModel.onEvent(SearchEvent.LoadedPage)
+                          }
                       }
 
                       loadState.append is LoadState.Loading -> {
-                          item {  }
+                          item {  viewModel.onEvent(SearchEvent.LoadMorePosts) }
                       }
 
                       loadState.refresh is LoadState.Error -> {

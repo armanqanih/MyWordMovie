@@ -43,7 +43,11 @@ class SearchViewModel @Inject constructor(
                 )
             }
             SearchEvent.SearchMovies -> TODO()
-            is SearchEvent.UpdateSearchQuery -> TODO()
+            is SearchEvent.UpdateSearchQuery ->{
+                _state.value = _state.value.copy(
+                    searchQuery = event.query
+                )
+            }
         }
     }
 
