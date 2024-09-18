@@ -1,12 +1,18 @@
 package org.lotka.xenonx.data.remote.api
 
-import org.lotka.xenonx.data.remote.response.MovieDetailsDTO
-import org.lotka.xenonx.data.remote.response.CastResponse
-import com.app.movieapp.data.remote.response.MovieResponse
-import com.ericg.neatflix.data.remote.response.GenreResponse
-import com.app.movieapp.data.remote.response.MultiSearchResponse
+
+import org.lotka.xenonx.data.remote.Dto.models.GenreDto
+import org.lotka.xenonx.domain.response.CastResponse
+import org.lotka.xenonx.domain.response.MovieResponse
+import org.lotka.xenonx.domain.response.GenreResponse
+import org.lotka.xenonx.domain.response.MultiSearchResponse
 import org.lotka.xenonx.data.remote.Dto.models.MoviesDto
-import org.lotka.xenonx.domain.models.GenreDto
+import org.lotka.xenonx.data.remote.Dto.models.SearchDto
+import org.lotka.xenonx.data.remote.response.GenreResponseDto
+import org.lotka.xenonx.data.remote.response.MovieDetailsDTO
+import org.lotka.xenonx.data.remote.response.MovieResponseDto
+import org.lotka.xenonx.domain.models.Search
+
 import org.lotka.xenonx.domain.util.Constants.Companion.API_KEY
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -72,7 +78,7 @@ interface ApiService {
         @Query("page") page: Int = 1,
         @Query("api_key") apiKey: String = API_KEY,
         @Query("language") language: String = "en"
-    ): List<MoviesDto>
+    ):List<MoviesDto>
 
     @GET("discover/movie?")
     suspend fun getDiscoverMovies(
@@ -82,7 +88,7 @@ interface ApiService {
         @Query("api_key") apiKey: String = API_KEY,
         @Query("language") language: String = "en",
         @Query("sort_by") sortBy: String = "vote_count.desc"
-    ): List<MoviesDto>
+    ):List<MoviesDto>
 
     @GET("movie/{movie_id}")
     suspend fun getMoviesDetails(
@@ -90,7 +96,7 @@ interface ApiService {
         @Query("append_to_response") appendToResponse: String = "videos,credits",
         @Query("api_key") apiKey: String = API_KEY,
         @Query("language") language: String = "en",
-    ): List<MovieDetailsDTO>
+    ): MovieDetailsDTO
     @GET("movie/{movie_id}/credits")
     suspend fun getMovieCast(
         @Path("movie_id") filmId: Int,
@@ -110,7 +116,7 @@ interface ApiService {
         @Query("include_adult") includeAdult: Boolean = true,
         @Query("api_key") apiKey: String = API_KEY,
         @Query("language") language: String = "en"
-    ): MultiSearchResponse
+    ): List<SearchDto>
 
     /** **Tv Shows**
      * CURRENTLY NOT IN USED

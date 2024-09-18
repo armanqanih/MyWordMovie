@@ -3,8 +3,6 @@ package org.lotka.xenonx.data.remote.Dto.models
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
-import org.lotka.xenonx.domain.models.Genre
-import org.lotka.xenonx.domain.models.GenreDto
 import org.lotka.xenonx.domain.models.Movies
 
 @Parcelize
@@ -67,9 +65,3 @@ fun MoviesDto.toMovie(): Movies {
     )
 }
 
-fun GenreDto.toGenre(): Genre {
-    return Genre(
-         id =  id,
-        name = name
-    )
-}

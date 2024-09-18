@@ -1,8 +1,9 @@
-package org.lotka.xenonx.domain.models
+package org.lotka.xenonx.data.remote.Dto.models
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
+import org.lotka.xenonx.domain.models.Genre
 
 
 @Parcelize
@@ -12,3 +13,11 @@ data class GenreDto(
     @SerializedName("name")
     val name: String
 ): Parcelable
+
+fun GenreDto.toGenre(): Genre {
+    return Genre(
+        id = id,
+        name = name
+    )
+
+}

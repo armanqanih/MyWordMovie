@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import org.lotka.xenonx.domain.models.Movies
-import org.lotka.xenonx.domain.usecase.HomeUseCases
+import org.lotka.xenonx.domain.usecase.home.HomeUseCases
 import org.lotka.xenonx.domain.util.Resource
 import javax.inject.Inject
 
@@ -19,7 +19,7 @@ class HomeViewModel @Inject constructor(
     private val homeUseCases: HomeUseCases
 ) : ViewModel() {
 
-    var genresWiseMovieListState: Flow<PagingData<List<Movies>>>? = null
+    var genresWiseMovieListState: Flow<PagingData<Movies>>? = null
     val nowPlayingAllListState = homeUseCases.getAllMoviesWithPaginationUseCase("nowPlayingAllListScreen").cachedIn(viewModelScope)
     val popularAllListState = homeUseCases.getAllMoviesWithPaginationUseCase("popularAllListScreen") .cachedIn(viewModelScope)
     val discoverListState = homeUseCases.getAllMoviesWithPaginationUseCase("discoverListScreen") .cachedIn(viewModelScope)
@@ -38,11 +38,11 @@ class HomeViewModel @Inject constructor(
     val page = _state.value.page
 
     init {
-        fetchNowPlayingMoviesUseCase()
-        fetchPopularMoviesUseCase()
+        fetchNowPlayingMovies ()
+        fetchPopularMovies ()
         fetchDiscoverMovies()
-        fetchTrendingMoviesUseCase()
-        fetchUpcomingMoviesUseCase()
+        fetchTrendingMovies()
+        fetchUpcomingMovies()
     }
 
 
@@ -58,13 +58,14 @@ class HomeViewModel @Inject constructor(
 
 
 
-    fun fetchMovieGenresUseCase() {
+    fun fetchMovieGenres() {
         viewModelScope.launch {
             homeUseCases.getMovieGenresUseCase().collect { result ->
                 when (result) {
                     is Resource.Success -> {
                         _state.value = _state.value.copy(
-                            genre = result.data ?: emptyList(),
+                            genre = result.data,
+                            page = 1,
                             isLoading = false
                         )
                     }
@@ -84,13 +85,14 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun fetchUpcomingMoviesUseCase() {
+    fun fetchUpcomingMovies() {
         viewModelScope.launch {
             homeUseCases.getUpcomingMoviesUseCase(page).collect { result ->
                 when (result) {
                     is Resource.Success -> {
                         _state.value = _state.value.copy(
-                            movies = result.data ?: emptyList(),
+                            upcomingMovies = result.data?: emptyList(),
+                            page = 1,
                             isLoading = false
                         )
                     }
@@ -110,13 +112,13 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun fetchTrendingMoviesUseCase() {
+    fun fetchTrendingMovies () {
         viewModelScope.launch {
             homeUseCases.getTrendingMoviesUseCase(page).collect { result ->
                 when (result) {
                     is Resource.Success -> {
                         _state.value = _state.value.copy(
-                            movies = result.data ?: emptyList(),
+                            trendingMovies = result.data?: emptyList(),
                             isLoading = false
                         )
                     }
@@ -136,13 +138,13 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun fetchNowPlayingMoviesUseCase() {
+    fun fetchNowPlayingMovies () {
         viewModelScope.launch {
             homeUseCases.getNowPlayingMoviesUseCase(page).collect { result ->
                 when (result) {
                     is Resource.Success -> {
                         _state.value = _state.value.copy(
-                            movies = result.data ?: emptyList(),
+                            nowPlayingMovies = result.data?: emptyList(),
                             isLoading = false
                         )
                     }
@@ -168,7 +170,7 @@ class HomeViewModel @Inject constructor(
                 when (result) {
                     is Resource.Success -> {
                         _state.value = _state.value.copy(
-                            movies = result.data ?: emptyList(),
+                            discoverMovies = result.data?: emptyList(),
                             isLoading = false
                         )
                     }
@@ -188,13 +190,13 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun fetchPopularMoviesUseCase() {
+    fun fetchPopularMovies () {
         viewModelScope.launch {
             homeUseCases.getPopularMoviesUseCase(page).collect { result ->
                 when (result) {
                     is Resource.Success -> {
                         _state.value = _state.value.copy(
-                            movies = result.data ?: emptyList(),
+                            popularMovies = result.data?: emptyList(),
                             isLoading = false
                         )
                     }

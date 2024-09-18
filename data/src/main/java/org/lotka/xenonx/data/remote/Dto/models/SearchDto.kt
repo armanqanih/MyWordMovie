@@ -2,6 +2,7 @@ package org.lotka.xenonx.data.remote.Dto.models
 
 import com.google.gson.annotations.SerializedName
 import org.lotka.xenonx.domain.models.Genre
+import org.lotka.xenonx.domain.models.Search
 
 
 data class SearchDto(
@@ -46,3 +47,29 @@ data class SearchDto(
     @SerializedName("vote_count")
     val voteCount: Int?
 )
+
+
+fun SearchDto.toSearch(): Search {
+    return Search(
+        adult = adult,
+        backdropPath = backdropPath,
+        genreIds = genreIds,
+        genres = genres,
+        id = id,
+        imdbId = imdbId,
+        mediaType = mediaType,
+        originCountry = originCountry,
+        originalLanguage = originalLanguage,
+        originalName = originalName,
+        originalTitle = originalTitle,
+        overview = overview,
+        popularity = popularity,
+        posterPath = posterPath,
+        releaseDate = releaseDate,
+        title = title,
+        video = video,
+        runtime = runtime,
+        voteAverage = voteAverage,
+        voteCount = voteCount
+    )
+}

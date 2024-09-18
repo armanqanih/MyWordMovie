@@ -1,7 +1,7 @@
 package org.lotka.xenonx.data.remote.response
 
-import org.lotka.xenonx.domain.models.Genre
 import com.google.gson.annotations.SerializedName
+import org.lotka.xenonx.data.remote.Dto.models.GenreDto
 
 
 data class MovieDetailsDTO(
@@ -10,11 +10,11 @@ data class MovieDetailsDTO(
     @SerializedName("backdrop_path")
     val backdropPath: String?,
     @SerializedName("belongs_to_collection")
-    val belongsToCollection: BelongsToCollection?,
+    val belongsToCollection: BelongsToCollectionDto?,
     @SerializedName("budget")
     val budget: Long,
     @SerializedName("genres")
-    val genres: List<Genre>,
+    val genres: List<GenreDto>,
     @SerializedName("homepage")
     val homepage: String,
     @SerializedName("id")
@@ -32,9 +32,9 @@ data class MovieDetailsDTO(
     @SerializedName("poster_path")
     val posterPath: String?,
     @SerializedName("production_companies")
-    val productionCompanies: List<ProductionCompany>,
+    val productionCompanies: List<ProductionCompanyDto>,
     @SerializedName("production_countries")
-    val productionCountries: List<ProductionCountry>,
+    val productionCountries: List<ProductionCountryDto>,
     @SerializedName("release_date")
     val releaseDate: String,
     @SerializedName("revenue")
@@ -42,7 +42,7 @@ data class MovieDetailsDTO(
     @SerializedName("runtime")
     val runtime: Int?,
     @SerializedName("spoken_languages")
-    val spokenLanguages: List<SpokenLanguage>,
+    val spokenLanguages: List<SpokenLanguageDto>,
     @SerializedName("status")
     val status: String,
     @SerializedName("tagline")
@@ -58,7 +58,7 @@ data class MovieDetailsDTO(
 ) {
 
     
-    data class BelongsToCollection(
+    data class BelongsToCollectionDto(
         @SerializedName("backdrop_path")
         val backdropPath: String,
         @SerializedName("id")
@@ -70,7 +70,7 @@ data class MovieDetailsDTO(
     )
 
     
-    data class ProductionCompany(
+    data class ProductionCompanyDto(
         @SerializedName("id")
         val id: Int,
         @SerializedName("logo_path")
@@ -82,7 +82,7 @@ data class MovieDetailsDTO(
     )
 
     
-    data class ProductionCountry(
+    data class ProductionCountryDto(
         @SerializedName("iso_3166_1")
         val iso31661: String,
         @SerializedName("name")
@@ -90,7 +90,7 @@ data class MovieDetailsDTO(
     )
 
     
-    data class SpokenLanguage(
+    data class SpokenLanguageDto(
         @SerializedName("iso_639_1")
         val iso6391: String,
         @SerializedName("name")

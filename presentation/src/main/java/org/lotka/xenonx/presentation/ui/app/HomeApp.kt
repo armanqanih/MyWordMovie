@@ -10,10 +10,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.SoftwareKeyboardController
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
-import org.lotka.xenonx.presentation.screens.SearchScreen
+import androidx.navigation.navArgument
+import org.lotka.xenonx.presentation.screens.search.SearchScreen
 import org.lotka.xenonx.presentation.screens.detail.DetailScreen
 import org.lotka.xenonx.presentation.screens.home.HomeScreen
 import org.lotka.xenonx.presentation.screens.see_all.SeeAllScreen
@@ -52,15 +54,34 @@ fun HomeApp(
                 ) {
 
                     HomeScreen(
-                        onNavigate = navController::navigate
-                        , onNavigateToPlayNow =  navController::navigate,
-                        onSearchClick = navController::navigate
+                        onNavigateToPlayNow = navController::navigate,
+                        onSearchClick = navController::navigate,
+                        onNavigateToPopular = navController::navigate,
+                        onNavigateToDiscover = navController::navigate,
+                        onNavigateToUpCommon = navController::navigate
                     )
 
 
                 }
                 composable(
                     route = ScreensNavigation.searchScreen .route,
+                ) {
+
+                    SearchScreen(
+                        onNavigateUp =  navController::navigateUp
+
+                    )
+
+
+                }
+                composable(
+                    route = ScreensNavigation.genryVisyScreen .route
+                    + "/{genId}" + "/{genName}",
+                    arguments = listOf(
+                        navArgument("genId"){type=NavType.StringType},
+                        navArgument("genName"){type=NavType.StringType}
+                    )
+                    ,
                 ) {
 
                     SearchScreen(

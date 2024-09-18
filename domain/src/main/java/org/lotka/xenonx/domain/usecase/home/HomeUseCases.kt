@@ -1,4 +1,4 @@
-package org.lotka.xenonx.domain.usecase
+package org.lotka.xenonx.domain.usecase.home
 
 
 

@@ -1,11 +1,8 @@
 package org.lotka.xenonx.data.remote.Dto.models
 
 import android.os.Parcelable
-import org.lotka.xenonx.domain.models.ProductionCompany
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
-import org.lotka.xenonx.domain.models.Genre
-import org.lotka.xenonx.domain.models.GenreDto
 
 @Parcelize
 data class TvShowDto(

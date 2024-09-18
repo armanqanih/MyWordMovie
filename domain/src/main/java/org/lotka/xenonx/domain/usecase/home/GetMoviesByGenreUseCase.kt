@@ -1,4 +1,4 @@
-package org.lotka.xenonx.domain.usecase
+package org.lotka.xenonx.domain.usecase.home
 
 import androidx.paging.PagingData
 import kotlinx.coroutines.flow.Flow
@@ -9,7 +9,7 @@ import javax.inject.Inject
 class GetMoviesByGenreUseCase @Inject constructor(
     private val movieRepository: HomeRepository
 ) {
-   operator fun invoke(genreId: Int): Flow<PagingData<List<Movies>>> {
+   operator fun invoke(genreId: Int): Flow<PagingData<Movies>> {
         return movieRepository.getGenresWiseMovieRepo(genreId)
     }
 }
