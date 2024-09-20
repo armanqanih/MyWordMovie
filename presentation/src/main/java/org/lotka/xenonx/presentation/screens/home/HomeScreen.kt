@@ -126,8 +126,6 @@ fun HomeScreen(
                 ){
 
                     item{
-
-
                         state.movies?.take(5)?.let {
                             HeaderSection(
                                 images = it,
