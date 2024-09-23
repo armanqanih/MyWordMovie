@@ -18,6 +18,7 @@ import androidx.navigation.navArgument
 import org.lotka.xenonx.presentation.screens.search.SearchScreen
 import org.lotka.xenonx.presentation.screens.detail.DetailScreen
 import org.lotka.xenonx.presentation.screens.home.HomeScreen
+
 import org.lotka.xenonx.presentation.screens.see_all.SeeAllScreen
 import org.lotka.xenonx.presentation.screens.splash.SplashScreen
 
@@ -49,7 +50,13 @@ fun HomeApp(
             NavHost(navController = navController,
                 startDestination = ScreensNavigation.homeScreen.route,
               ) {
-                composable(
+//                composable(
+//                    route = ScreensNavigation.playVideoScreen .route,
+//                ) {
+//                    PlayVideoScreen()
+//
+//                }
+                    composable(
                     route = ScreensNavigation.homeScreen .route,
                 ) {
 
