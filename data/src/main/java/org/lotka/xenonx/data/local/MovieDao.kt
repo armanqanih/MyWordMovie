@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface MovieDao {
     @Insert(onConflict = REPLACE)
-    suspend fun insertMovieInList(watchListModel: WatchListModel)
+    suspend fun insertMovieInList(watchListEntity: WatchListEntity)
 
     @Query("DELETE FROM watch_list_table WHERE mediaId =:mediaId")
     suspend fun removeFromList(mediaId: Int)
@@ -21,6 +21,11 @@ interface MovieDao {
     suspend fun exists(mediaId: Int): Int
 
     @Query("SELECT * FROM watch_list_table ORDER BY addedOn DESC")
-    fun getAllWatchListData(): Flow<List<WatchListModel>>
+    fun getAllWatchListData(): Flow<List<WatchListEntity>>
+
+
+
+
+
 }
 

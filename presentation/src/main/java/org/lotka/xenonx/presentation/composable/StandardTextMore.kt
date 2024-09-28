@@ -48,7 +48,7 @@ fun StandardTextMore(
             style = MaterialTheme.typography.body1,
 
             )
-        Spacer(modifier = Modifier.height(Constants.SpaceSmall))
+        Spacer(modifier = Modifier.height(SpaceSmall))
         Icon(
             modifier = Modifier.size(Constants.IconSizeSmall)
           ,

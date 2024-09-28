@@ -28,7 +28,6 @@ class HomeRepositoryImpl @Inject constructor (
                     val response = apiService.getNowPlayingMovies(page)
                     val movies = response.map { it.toMovie() }
                     emit(Resource.Success(movies))
-                    emit(Resource.Loading(false))
                 }catch (e: HttpException) {
                     emit(Resource.Error("Network error: ${e.message}"))
                 } catch (e: IOException) {
@@ -48,7 +47,6 @@ class HomeRepositoryImpl @Inject constructor (
                     val response = apiService.getPopularMovies(page)
                     val movies = response.map { it.toMovie() }
                     emit(Resource.Success(movies))
-                    emit(Resource.Loading(false))
                 }catch (e: HttpException) {
                     emit(Resource.Error("Network error: ${e.message}"))
                 } catch (e: IOException) {
@@ -67,8 +65,6 @@ class HomeRepositoryImpl @Inject constructor (
                 try {   val response = apiService.getDiscoverMovies(page)
                     val movies = response.map { it.toMovie() }
                     emit(Resource.Success(movies))
-                    emit(Resource.Loading(false))
-
                 }catch (e: HttpException) {
                     emit(Resource.Error("Network error: ${e.message}"))
                 } catch (e: IOException) {
@@ -116,8 +112,6 @@ class HomeRepositoryImpl @Inject constructor (
                     val response = apiService.getTrendingMovies(page)
                     val movies = response.map { it.toMovie() }
                     emit(Resource.Success(movies))
-                    emit(Resource.Loading(false))
-
                 }catch (e: HttpException) {
                     emit(Resource.Error("Network error: ${e.message}"))
                 } catch (e: IOException) {
@@ -137,9 +131,7 @@ class HomeRepositoryImpl @Inject constructor (
                     val response = apiService.getUpcomingMovies(page)
                     val movies = response.map { it.toMovie() }
                     emit(Resource.Success(movies))
-                    emit(Resource.Loading(false))
-
-                }catch (e: HttpException) {
+                      }catch (e: HttpException) {
                     emit(Resource.Error("Network error: ${e.message}"))
                 } catch (e: IOException) {
                     emit(Resource.Error("Check your internet connection"))
@@ -156,7 +148,6 @@ class HomeRepositoryImpl @Inject constructor (
                     val response = apiService.getMovieGenres()
                     val movies = response.map { it.toGenre() }
                     emit(Resource.Success(movies))
-                    emit(Resource.Loading(false))
                 }catch (e: HttpException) {
                     emit(Resource.Error("Network error: ${e.message}"))
                 } catch (e: IOException) {

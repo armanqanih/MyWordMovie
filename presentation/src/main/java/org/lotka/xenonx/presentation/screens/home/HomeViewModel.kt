@@ -29,13 +29,11 @@ class HomeViewModel @Inject constructor(
         genresWiseMovieListState=  homeUseCases.getGenresWiseMovieUseCase(genreSelected).cachedIn(viewModelScope)
     }
 
-
-
-
-
     private val _state = MutableStateFlow(HomeState())
     val state = _state.asStateFlow()
     val page = _state.value.page
+
+
 
     init {
         fetchNowPlayingMovies ()
@@ -43,9 +41,8 @@ class HomeViewModel @Inject constructor(
         fetchDiscoverMovies()
         fetchTrendingMovies()
         fetchUpcomingMovies()
+        fetchMovieGenres()
     }
-
-
 
 
 
@@ -119,6 +116,7 @@ class HomeViewModel @Inject constructor(
                     is Resource.Success -> {
                         _state.value = _state.value.copy(
                             trendingMovies = result.data?: emptyList(),
+                            page = 1,
                             isLoading = false
                         )
                     }
@@ -145,6 +143,7 @@ class HomeViewModel @Inject constructor(
                     is Resource.Success -> {
                         _state.value = _state.value.copy(
                             nowPlayingMovies = result.data?: emptyList(),
+                            page = 1,
                             isLoading = false
                         )
                     }
@@ -171,6 +170,7 @@ class HomeViewModel @Inject constructor(
                     is Resource.Success -> {
                         _state.value = _state.value.copy(
                             discoverMovies = result.data?: emptyList(),
+                            page = 1,
                             isLoading = false
                         )
                     }

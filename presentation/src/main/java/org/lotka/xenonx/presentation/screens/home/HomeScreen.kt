@@ -1,6 +1,7 @@
 package org.lotka.xenonx.presentation.screens.home
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -105,7 +106,11 @@ fun HomeScreen(
                             )
                         }
                         Spacer(modifier = Modifier.width(8.dp))
-                        IconButton(onClick = {  }) {
+                        IconButton(onClick = {
+                            onSearchClick(
+                                ScreensNavigation.bookmarkScreen.route
+                            )
+                        }) {
                             Icon(
                                 imageVector = Icons.Outlined.Bookmarks,
                                 contentDescription = "bookMarks",

@@ -1,8 +1,7 @@
 package org.lotka.xenonx.presentation.ui.app
 
 
-
-
+import BookMarkScreen
 import android.annotation.SuppressLint
 import androidx.compose.material.Scaffold
 import androidx.compose.material.rememberScaffoldState
@@ -47,17 +46,18 @@ fun HomeApp(
     Scaffold(
 
         content = { _ ->
-            NavHost(navController = navController,
+            NavHost(
+                navController = navController,
                 startDestination = ScreensNavigation.homeScreen.route,
-              ) {
+            ) {
 //                composable(
 //                    route = ScreensNavigation.playVideoScreen .route,
 //                ) {
 //                    PlayVideoScreen()
 //
 //                }
-                    composable(
-                    route = ScreensNavigation.homeScreen .route,
+                composable(
+                    route = ScreensNavigation.homeScreen.route,
                 ) {
 
                     HomeScreen(
@@ -73,11 +73,11 @@ fun HomeApp(
 
                 }
                 composable(
-                    route = ScreensNavigation.searchScreen .route,
+                    route = ScreensNavigation.searchScreen.route,
                 ) {
 
                     SearchScreen(
-                        onNavigateUp =  navController::navigateUp
+                        onNavigateUp = navController::navigateUp
 
                     )
 
@@ -85,13 +85,24 @@ fun HomeApp(
                 }
 
                 composable(
-                    route = ScreensNavigation.seeAllScreen .route+ "/{seeAllTags}",
+                    route = ScreensNavigation.bookmarkScreen.route,
+                ) {
+
+                    BookMarkScreen(
+                        onNavigateUp = navController::navigateUp,
+                        onNavigateToDetail = navController::navigate,
+                        onNavigateToSearch = navController::navigate
+                    )
+                }
+
+                composable(
+                    route = ScreensNavigation.seeAllScreen.route + "/{seeAllTags}",
                     arguments = listOf(navArgument("seeAllTags")
                     { type = NavType.StringType })
                 ) {
 
                     SeeAllScreen(
-                        it.arguments?.getString("seeAllTags")?:"1",
+                        it.arguments?.getString("seeAllTags") ?: "1",
                         onNavigateDetailScreen = navController::navigate,
                         onNavigateToSearchScreen = navController::navigate
                     )
@@ -101,17 +112,16 @@ fun HomeApp(
 
 
                 composable(
-                    route = ScreensNavigation.genryVisyScreen .route
-                    + "/{genId}" + "/{genName}",
+                    route = ScreensNavigation.genryVisyScreen.route
+                            + "/{genId}" + "/{genName}",
                     arguments = listOf(
-                        navArgument("genId"){type=NavType.StringType},
-                        navArgument("genName"){type=NavType.StringType}
-                    )
-                    ,
+                        navArgument("genId") { type = NavType.StringType },
+                        navArgument("genName") { type = NavType.StringType }
+                    ),
                 ) {
 
                     SearchScreen(
-                        onNavigateUp =  navController::navigateUp
+                        onNavigateUp = navController::navigateUp
 
                     )
 
@@ -119,7 +129,7 @@ fun HomeApp(
                 }
 
                 composable(
-                    route = ScreensNavigation.detailScreen .route,
+                    route = ScreensNavigation.detailScreen.route,
                 ) {
 
                     DetailScreen(
@@ -136,7 +146,7 @@ fun HomeApp(
                     SplashScreen(
                         onNavigate = navController::navigate,
 
-                    )
+                        )
 
 
                 }

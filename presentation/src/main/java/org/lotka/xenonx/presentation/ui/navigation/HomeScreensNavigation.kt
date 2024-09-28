@@ -11,7 +11,7 @@ sealed class ScreensNavigation(val route: String) {
     object genryVisyScreen : ScreensNavigation(route = "genreWiseMovie")
     object searchScreen : ScreensNavigation(route = "search")
     object aboutScreen : ScreensNavigation(route = "about")
-    object watchListScreen : ScreensNavigation(route = "watch")
+    object bookmarkScreen : ScreensNavigation(route = "book_mark")
 
 
 
