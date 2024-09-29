@@ -12,9 +12,11 @@ import org.lotka.xenonx.data.local.MovieDao
 import org.lotka.xenonx.data.local.MovieDatabase
 import org.lotka.xenonx.data.remote.api.ApiService
 import org.lotka.xenonx.data.remote.repository.BookMarkRepositoryImpl
+import org.lotka.xenonx.data.remote.repository.DetailRepositoryImpl
 import org.lotka.xenonx.data.remote.repository.HomeRepositoryImpl
 import org.lotka.xenonx.data.remote.repository.SearchRepositoryImpl
 import org.lotka.xenonx.domain.repository.BookMarkRepository
+import org.lotka.xenonx.domain.repository.DetailRepository
 import org.lotka.xenonx.domain.repository.HomeRepository
 import org.lotka.xenonx.domain.repository.SearchRepository
 import org.lotka.xenonx.domain.usecase.boomark.BookMarksUseCase
@@ -23,6 +25,10 @@ import org.lotka.xenonx.domain.usecase.boomark.ExistsUseCase
 import org.lotka.xenonx.domain.usecase.boomark.GetAllWatchListUseCase
 import org.lotka.xenonx.domain.usecase.boomark.InsertMoviesUseCase
 import org.lotka.xenonx.domain.usecase.boomark.RemoveMovieFromListUseCase
+import org.lotka.xenonx.domain.usecase.detail.DetailUseCases
+import org.lotka.xenonx.domain.usecase.detail.GetCastMovieUseCase
+import org.lotka.xenonx.domain.usecase.detail.GetDetailMoviesUseCase
+import org.lotka.xenonx.domain.usecase.detail.GetSimilarMovieUseCase
 import org.lotka.xenonx.domain.usecase.home.GetAllMoviesWithPaginationUseCase
 import org.lotka.xenonx.domain.usecase.home.GetDiscoverMoviesUseCase
 import org.lotka.xenonx.domain.usecase.home.GetMovieGenresUseCase
@@ -38,17 +44,6 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object AppModule {
 
-//    @Provides
-//    @Singleton
-//    fun provideConverters(gson: Gson): Converters {
-//        return Converters(gson)
-//    }
-//
-//    @Provides
-//    @Singleton
-//    fun provideGson(): Gson {
-//        return Gson()
-//    }
 
 
     @Provides
@@ -71,6 +66,10 @@ object AppModule {
     @Provides
     fun provideSearchRepository(apiService: ApiService): SearchRepository {
         return SearchRepositoryImpl(apiService)
+    }
+    @Provides
+    fun provideDetailRepository(apiService: ApiService): DetailRepository {
+        return DetailRepositoryImpl(apiService)
     }
 
 
@@ -116,6 +115,18 @@ object AppModule {
             insertMoviesUseCase = insertMoviesUseCase,
             existsUseCase = existsUseCase,
             removeMovieFromListUseCase = removeMovieFromListUseCase
+        )
+    }
+    @Provides
+    fun provideDetailUseCases(
+        getDetailMoviesUseCase: GetDetailMoviesUseCase,
+        getCastMovieUseCase: GetCastMovieUseCase,
+        getSimilarMovieUseCase: GetSimilarMovieUseCase
+        ):DetailUseCases {
+        return DetailUseCases(
+            getDetailMoviesUseCase = getDetailMoviesUseCase,
+            getCastMovieUseCase = getCastMovieUseCase,
+            getSimilarMovieUseCase = getSimilarMovieUseCase
         )
     }
 

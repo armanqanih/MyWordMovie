@@ -48,7 +48,7 @@ fun HomeApp(
         content = { _ ->
             NavHost(
                 navController = navController,
-                startDestination = ScreensNavigation.homeScreen.route,
+                startDestination = ScreensNavigation.detailScreen.route,
             ) {
 //                composable(
 //                    route = ScreensNavigation.playVideoScreen .route,
@@ -72,6 +72,17 @@ fun HomeApp(
 
 
                 }
+                composable(
+                    route = ScreensNavigation.detailScreen.route,
+                ) {
+
+                    DetailScreen(
+                        onNavigateUp = navController::navigateUp,
+                    )
+
+
+                }
+
                 composable(
                     route = ScreensNavigation.searchScreen.route,
                 ) {

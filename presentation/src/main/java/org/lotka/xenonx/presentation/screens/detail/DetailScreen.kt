@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -44,9 +45,15 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 
 import androidx.compose.ui.unit.dp
+import org.lotka.xenonx.domain.models.Cast
 
 import org.lotka.xenonx.presentation.R
+import org.lotka.xenonx.presentation.screens.detail.compose.CastMediaSection
+import org.lotka.xenonx.presentation.screens.detail.compose.DetailHeaderSection
+import org.lotka.xenonx.presentation.screens.detail.compose.GenreChip
 import org.lotka.xenonx.presentation.screens.detail.compose.MovieInformation
+import org.lotka.xenonx.presentation.screens.detail.compose.OverviewSection
+import org.lotka.xenonx.presentation.screens.detail.compose.SimilarMediaSection
 
 import org.lotka.xenonx.presentation.screens.detail.compose.TypeOfMovie
 import org.lotka.xenonx.presentation.util.Constants
@@ -55,106 +62,42 @@ import org.lotka.xenonx.presentation.util.Constants.SpaceMedium
 import org.lotka.xenonx.presentation.util.Constants.SpaceSmall
 import org.lotka.xenonx.presentation.util.Constants.SpaceToLarge
 
+
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun DetailScreen(
   onNavigateUp:()-> Unit
-
 ) {
 
     LazyColumn(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier
+            .fillMaxSize()
             .padding(bottom = SpaceMedium),
-
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         item {
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .clip(shape = RoundedCornerShape(SpaceMedium))
-            ) {
+            DetailHeaderSection(
+                onNavigateUp = onNavigateUp,
+                backdropImageUrl = "",
+                posterImageUrl = "",
+                nameOfMovie = "",
+                onBookmarkClick = {
 
-
-                Image(
-                    contentScale = ContentScale.Crop,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(250.dp),
-                    painter = painterResource(id = R.drawable.assasin),
-                    contentDescription = "Detail Header image"
-                )
-                Image(
-                    contentScale = ContentScale.Crop,
-                    modifier = Modifier
-                        .offset(y = (+90).dp)
-                        .align(Alignment.BottomCenter)
-                        .clip(RoundedCornerShape(Constants.SpaceSmall))
-                        .shadow(elevation = 1.dp)
-                        .width(150.dp)
-                        .height(300.dp),
-                    painter = painterResource(id = R.drawable.pobg),
-                    contentDescription = "profile image"
-                )
-
-                // Row with icons (On top of the images)
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .align(Alignment.TopCenter) // Align to the top center of the Box
-                        .padding(Constants.SpaceMedium),
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-                    Icon(
-                        modifier = Modifier
-                            .clip(shape = CircleShape)
-                            .clickable {
-                                onNavigateUp()
-                            }
-                            .padding(SpaceSmall)
-                            .align(Alignment.CenterVertically)
-
-                        , imageVector = Icons.Default.ArrowBackIosNew,
-                        contentDescription = "BackDetail",
-                        tint = MaterialTheme.colors.onBackground,
-                    )
-                    Icon(
-                        modifier = Modifier
-                            .clip(shape = CircleShape)
-                            .clickable {
-
-                            }
-                            .padding(SpaceSmall)
-                            .align(Alignment.CenterVertically)
-                        ,
-                        imageVector = Icons.Default.BookmarkBorder,
-                        contentDescription = "BookMarkBorder",
-                        tint = MaterialTheme.colors.onBackground,
-                    )
-                }
-
-
-            }
-            Spacer(modifier = Modifier.height(SpaceMedium))
-
-//        Name Of Movie
-            Text(
-                text = "The Son Of Super Man",
-                style = MaterialTheme.typography.h2,
-                textAlign = TextAlign.Center,
-                fontWeight = FontWeight.Bold
-            )
-
-        }
+                }) }
 
 // Type Of Movie
         item() {
             Spacer(modifier = Modifier.height(SpaceSmall))
-            TypeOfMovie(
-                eachItem = 2,
-                text = "Action"
-            )
-
+            Box(
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                FlowRow(
+                    modifier = Modifier.align(Alignment.Center),
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                  GenreChip(genre = "Action")
+                }
+            }
 
         }
         item {
@@ -168,60 +111,19 @@ fun DetailScreen(
 
 
         }
+        item {
+//            OverViewSection
+            OverviewSection(
+                overview = "",
+                tagline = "")
+        }
 
 //        Cast
 
         item {
 
             Spacer(modifier = Modifier.height(SpaceLarge))
-
-            Column(modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = SpaceToLarge),
-            ) {
-                Text(
-                    text = "Cast",
-                    style = MaterialTheme.typography.body1,
-                    fontWeight = FontWeight.Bold
-                )
-                Spacer(modifier = Modifier.height(SpaceMedium))
-            LazyRow (horizontalArrangement = Arrangement.spacedBy(SpaceSmall)){
-                items(10){
-                    Box(modifier = Modifier
-                        .height(160.dp)
-                        .width(120.dp)
-                        .clip(shape = RoundedCornerShape(SpaceMedium))
-                        .shadow(elevation = 4.dp)
-                    ){
-
-                        Image(
-                            contentScale = ContentScale.Crop,
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .clip(RoundedCornerShape(SpaceMedium)),
-                            painter = painterResource(id = R.drawable.tombreader),
-                            contentDescription = "header image"
-
-                        )
-                        Text(
-                            modifier = Modifier.fillMaxWidth()
-                                .align(Alignment.BottomCenter)
-                                .padding(SpaceSmall),
-                            text = "New Movies Coming ",
-                            maxLines = 2,
-                            overflow = TextOverflow.Ellipsis,
-                            textAlign = TextAlign.Center,
-                            color = MaterialTheme.colors.onBackground,
-                            fontWeight = FontWeight.Bold,
-                            style = MaterialTheme.typography.body2,
-
-
-                            )
-                }}
-
-        }
-            }
-
+            CastMediaSection(castList = listOf())
             }
 
 
@@ -230,41 +132,10 @@ fun DetailScreen(
 
             Spacer(modifier = Modifier.height(SpaceLarge))
 
-            Column(modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = SpaceToLarge),
-            ) {
-                Text(
-                    text = "Similar Movies",
-                    style = MaterialTheme.typography.body1,
-                    fontWeight = FontWeight.Bold
-                )
-                Spacer(modifier = Modifier.height(SpaceMedium))
-                LazyRow (horizontalArrangement = Arrangement.spacedBy(SpaceSmall)){
-                    items(10){
-                        Box(modifier = Modifier
-                            .height(160.dp)
-                            .width(120.dp)
-                            .clip(shape = RoundedCornerShape( SpaceMedium))
-                            .shadow(elevation = 4.dp)
-                        ){
-
-                            Image(
-                                contentScale = ContentScale.Crop,
-                                modifier = Modifier
-                                    .fillMaxSize()
-                                    .clip(RoundedCornerShape(SpaceMedium)),
-                                painter = painterResource(id = R.drawable.prettygirl),
-                                contentDescription = "header image"
-
-                            )
-
-                        }}
-
-                }
-
-            }
-
+            SimilarMediaSection(
+                media = listOf(),
+                onNavigateToDetail = {}
+            )
 
         }}
 

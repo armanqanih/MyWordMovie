@@ -2,6 +2,8 @@ package org.lotka.xenonx.data.remote.response
 
 import com.google.gson.annotations.SerializedName
 import org.lotka.xenonx.data.remote.Dto.models.GenreDto
+import org.lotka.xenonx.domain.models.Genre
+import org.lotka.xenonx.domain.response.MovieDetails
 
 
 data class MovieDetailsDTO(
@@ -97,3 +99,61 @@ data class MovieDetailsDTO(
         val name: String
     )
 }
+
+fun MovieDetailsDTO.toMovieDetail(): MovieDetails {
+    return MovieDetails(
+        id = this.id,
+        title = this.title,
+        overview = this.overview,
+        genres = this.genres.map { genreDto ->
+            Genre(id = genreDto.id, name = genreDto.name)
+        },
+        runtime = this.runtime,
+        voteAverage = this.voteAverage,
+        posterPath = this.posterPath,
+        releaseDate = this.releaseDate,
+        budget = this.budget,
+        revenue = this.revenue,
+        adult = this.adult,
+        backdropPath = this.backdropPath,
+        belongsToCollection = this.belongsToCollection?.let {
+            MovieDetails.BelongsToCollection(
+                id = it.id,
+                name = it.name,
+                posterPath = it.posterPath,
+                backdropPath = it.backdropPath
+            )
+        },
+        homepage = this.homepage,
+        imdbId = this.imdbId,
+        originalLanguage = this.originalLanguage,
+        originalTitle = this.originalTitle,
+        popularity = this.popularity,
+        productionCompanies = this.productionCompanies.map { companyDto ->
+            MovieDetails.ProductionCompany(
+                id = companyDto.id,
+                name = companyDto.name,
+                logoPath = companyDto.logoPath,
+                originCountry = companyDto.originCountry
+            )
+        },
+        productionCountries = this.productionCountries.map { countryDto ->
+            MovieDetails.ProductionCountry(
+                iso31661 = countryDto.iso31661,
+                name = countryDto.name
+            )
+        },
+        spokenLanguages = this.spokenLanguages.map { languageDto ->
+            MovieDetails.SpokenLanguage(
+                iso6391 = languageDto.iso6391,
+                name = languageDto.name
+            )
+        },
+        status = this.status,
+        tagline = this.tagline,
+        video = this.video,
+        voteCount = this.voteCount
+    )
+}
+
+
