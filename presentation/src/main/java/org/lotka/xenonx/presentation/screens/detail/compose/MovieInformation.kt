@@ -22,10 +22,10 @@ import org.lotka.xenonx.presentation.util.Constants.SpaceToLarge
 
 @Composable
 fun MovieInformation(
-    ReleaseDate: String,
+    ReleaseDate: String?,
     Duration: String,
     Rating: String,
-    Language: String
+    Language: String?
 ){
     Column(modifier = Modifier.fillMaxWidth()
         .padding(horizontal = SpaceToLarge),
@@ -33,8 +33,10 @@ fun MovieInformation(
         Row(modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.Center
         ){
-            TextsDetail(title = "Release Date",
-                subTitle =ReleaseDate )
+            if (ReleaseDate != null) {
+                TextsDetail(title = "Release Date",
+                    subTitle =ReleaseDate )
+            }
             Spacer(modifier = Modifier.width(SpaceToLarge))
 
             TextsDetail(title = "Duration",
@@ -46,8 +48,10 @@ fun MovieInformation(
                 showRatingIcon = true
             )
             Spacer(modifier = Modifier.width(SpaceToLarge))
-            TextsDetail(title = Language,
-                subTitle ="English" )
+            if (Language != null) {
+                TextsDetail(title = Language,
+                    subTitle ="English" )
+            }
         }
 
 

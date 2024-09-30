@@ -48,7 +48,7 @@ fun HomeApp(
         content = { _ ->
             NavHost(
                 navController = navController,
-                startDestination = ScreensNavigation.detailScreen.route,
+                startDestination = ScreensNavigation.homeScreen.route,
             ) {
 //                composable(
 //                    route = ScreensNavigation.playVideoScreen .route,
@@ -74,6 +74,8 @@ fun HomeApp(
                 }
                 composable(
                     route = ScreensNavigation.detailScreen.route,
+                    arguments = listOf(navArgument("movieId") {
+                        type = NavType.StringType })
                 ) {
 
                     DetailScreen(
@@ -115,7 +117,8 @@ fun HomeApp(
                     SeeAllScreen(
                         it.arguments?.getString("seeAllTags") ?: "1",
                         onNavigateDetailScreen = navController::navigate,
-                        onNavigateToSearchScreen = navController::navigate
+                        onNavigateToSearchScreen = navController::navigate,
+                        onNavigateUp = navController::navigateUp
                     )
 
 

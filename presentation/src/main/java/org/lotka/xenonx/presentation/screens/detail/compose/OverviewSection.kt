@@ -16,7 +16,7 @@ import org.lotka.xenonx.presentation.util.Constants.SpaceMedium
 
 @Composable
 fun OverviewSection(
-    overview: String,
+    overview: String?,
     tagline: String?
 ) {
     Column {
@@ -40,7 +40,7 @@ fun OverviewSection(
 
         Text(
             modifier = Modifier.padding(horizontal = 22.dp),
-            text = overview,
+            text = overview?:"",
             fontSize = 16.sp,
             color = MaterialTheme.colors.onBackground,
             lineHeight = 16.sp

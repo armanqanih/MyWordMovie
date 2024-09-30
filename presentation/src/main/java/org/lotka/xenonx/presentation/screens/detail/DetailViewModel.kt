@@ -3,6 +3,7 @@ package org.lotka.xenonx.presentation.screens.detail
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -11,12 +12,13 @@ import org.lotka.xenonx.domain.util.Resource
 import org.lotka.xenonx.presentation.screens.home.HomeState
 import javax.inject.Inject
 
+@HiltViewModel
 class DetailViewModel @Inject constructor(
     private val detailUseCases: DetailUseCases,
     savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 
-    val _state = MutableStateFlow(DetailState())
+   private val _state = MutableStateFlow(DetailState())
     val state = _state.asStateFlow()
 
 

@@ -68,11 +68,6 @@ fun SeeAllScreen(
     var allMoviesPagination: LazyPagingItems<Movies>? = null
     var title = ""
 
-    BackHandler(
-        enabled = true
-    ) {
-      onNavigateUp()
-    }
 
 
     when (selectedTitle) {

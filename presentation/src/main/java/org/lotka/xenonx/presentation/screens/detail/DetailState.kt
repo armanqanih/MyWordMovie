@@ -12,5 +12,5 @@ data class DetailState(
     val castList: List<Cast> = emptyList(),
     val movies:List<Movies> = emptyList(),
     val error: String = "",
-    val exist : Int? = 0
+
 )
